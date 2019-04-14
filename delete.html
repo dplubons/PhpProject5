@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        function getIdFromUrl() {
+            let url = new URL(window.location.href);
+            let id = url.searchParams.get("id");
+            return id;
+        }
+
+        $(document).ready(function () {
+            $("#delete").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "http://csis.svsu.edu/~dplubons/cis355/PhpProject5/delete.php",
+                    data: "id=" + getIdFromUrl(),
+                    crossDomain: true,
+                    cache: false,
+                    beforeSend: function () { $("#delete").val('Deleting...'); },
+                    success: function (data) { location.href = "index.html"; }
+                });
+                return false;
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="span10 offset1">
+            <div class="row">
+                <h3>Delete a Customer</h3>
+            </div>
+
+            <input type="hidden" name="id" value="" />
+            <p class="alert alert-error">Are you sure you want to delete?</p>
+            <div class="form-actions">
+                <input type="button" id="delete" class="btn btn-danger" value="Yes" />
+                <a class="btn" href="index.html">No</a>
+            </div>
+        </div>
+
+    </div> <!-- /container -->
+</body>
+
+</html>

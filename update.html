@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <meta charset="utf-8">
+        <link   href="css/bootstrap.min.css" rel="stylesheet">
+        <script src="js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+        function getIdFromUrl() {
+            let url = new URL(window.location.href);
+            let id = url.searchParams.get("id");
+            return id;
+        }
+
+        $(document).ready(function () {
+            $("#demo").load("http://csis.svsu.edu/~dplubons/cis355/PhpProject5/update.php?id=" + getIdFromUrl());
+            $("#update").click(function () {
+                console.log('butts');
+                var name = $("#name").val();
+                var email = $("#email").val();
+                var mobile = $("#mobile").val();
+                var dataString =
+                    "id=" + getIdFromUrl()
+                    +"&name="+name
+                    +"&email="+email
+                    +"&mobile="+mobile
+                    +"&update=";
+                if ($.trim(name).length > 0
+                    & $.trim(email).length > 0
+                    & $.trim(mobile).length > 0) {
+                    $.ajax({
+                        type: "POST",
+                        url: "http://csis.svsu.edu/~dplubons/cis355/PhpProject5/update.php",
+                        data: dataString,
+                        crossDomain: true,
+                        cache: false,
+                        beforeSend: function () { $("#update").val('Updating...'); },
+                        success: function (data) { location.href = "index.html"; }
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="span10 offset1">
+            <div class="row">
+                <h3>Update a Customer</h3>
+            </div>
+
+            <div id='demo'></div>
+
+            <div class="form-actions">
+                <input type="button" id="update" class="btn btn-success" value="Update" />
+                <a class="btn" href="index.html">Back</a>
+            </div>
+        </div>
+
+    </div> <!-- /container -->
+</body>
+
+</html>

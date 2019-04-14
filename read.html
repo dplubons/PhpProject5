@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+            function getIdFromUrl(){
+                let url = new URL(window.location.href);
+                let id = url.searchParams.get("id");
+                return id;
+            }
+
+            $(document).ready(function () {
+                $("#demo").load("http://csis.svsu.edu/~dplubons/cis355/PhpProject5/read.php?id=" + getIdFromUrl());
+            });
+        </script>
+</head>
+
+<body>
+
+    <div id="demo">
+    </div>
+
+</body>
+
+</html>
